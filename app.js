@@ -17,7 +17,7 @@ const conf = require("./src/configs/config.json");
 
 client.login(settings.token).then(() => console.log("Giriş başarılı!")).catch(() => console.log("Giriş Başarısız!"));
 
-client.on("ready", () => client.user.setPresence({ activity: { name: "Devotion ©" }, status: "dnd" }));
+client.on("ready", () => client.user.setPresence({ activity: { name: "evde canım sıkılıyooo", type: "WATCHING" }, status: "dnd" }));
 
 app.engine(".ejs", ejs.__express);
 app.set("view engine", "ejs");
@@ -106,19 +106,19 @@ app.post("/basvuru", async (req, res) => {
   console.log(req.body.position)
   const embed = new MessageEmbed()
     .setThumbnail(channel.guild.iconURL({ dynamic: true }))
-    .setAuthor(clientUser.username, clientUser.avatarURL({ dynamic: true }))
+    .setAuthor(`${clientUser.username} Bavşuruda bulundu!`, clientUser.avatarURL({ dynamic: true }))
     .setColor("#ff3f56")
-    .setFooter(client.user.username, client.user.avatarURL())
-    .setTitle("Yeni yetkili başvurusu!")
     .setDescription(`
 **Kullanıcı:** ${channel.guild.members.cache.get(req.user.id).toString()} - \`${req.user.id}\`
-**Adı Soyadı:** ${req.body.name}
-**E-mail:** ${req.body.email}
-**Doğum Tarihi:** ${req.body.birthday}
+**Adı Soyadı:** \`${req.body.name}\`
+**E-mail:** \`${req.body.email}\`
+**Doğum Tarihi:** \`${req.body.birthday}\`
+**Pozisyonu:** \`${req.body.position}\`
+
 **Yaptığı İşler:** ${req.body.jobs}
-**Pozisyonu:** ${req.body.position}
 
 **Neden Devotion?:** ${req.body.whyDevotion}
+
 **Kendinizden Bahsedin:** ${req.body.whyMe}
     `);
   const message = await channel.send(embed);
