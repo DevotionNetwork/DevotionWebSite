@@ -40,8 +40,7 @@ passport.serializeUser((user, done) => {
     .setDescription(`
 **Kullanıcı adı:** ${clientUser.tag}
 **Kullanıcı ID:** ${clientUser.id}
-**Hesap Oluşturma Tarihi:** ${moment(clientUser.createdTimestamp).format("LLL")} (\`${moment(clientUser.createdTimestamp).fromNow()}\`)
-    `);
+**Hesap Oluşturma Tarihi:** ${moment(clientUser.createdTimestamp).format("LLL")} (\`${moment(clientUser.createdTimestamp).fromNow()}\`)`);
   channel.send(embed);
   return done(null, user);
 });
@@ -99,7 +98,7 @@ app.get("/error", (req, res) => {
 app.post("/basvuru", async (req, res) => {
   if (!req.user) return error(res, 138, "Yetkili başvurusunda bulunabilmek için siteye giriş yapmanız gerekmektedir..");
 
-  const channel = client.channels.cache.get("833664103938916362");
+ /* const channel = client.channels.cache.get("833664103938916362");
   const member = channel.guild.members.cache.get(req.user.id);
   if (!member) return error(res, 403, "Başvuru yapabilmek için Discord sunucumuzda bulunmanız gerekmektedir..");
   const clientUser = client.users.cache.get(req.user.id);
@@ -123,7 +122,7 @@ app.post("/basvuru", async (req, res) => {
     `);
   const message = await channel.send(embed);
   return res.redirect("/");
-});
+});*/
 
 app.use((req, res) => error(res, 404, "Sayfa bulunamadı!"));
 
