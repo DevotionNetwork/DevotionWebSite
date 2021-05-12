@@ -114,12 +114,11 @@ app.post("/basvuru", async (req, res) => {
 **Doğum Tarihi:** \`${req.body.birthday}\`
 **Pozisyonu:** \`${req.body.position}\`
 
-**Yaptığı İşler:** ${req.body.jobs}
+**Eylemleri:** ${req.body.jobs}
 
 **Neden Devotion?:** ${req.body.whyDevotion}
 
-**Kendinizden Bahsedin:** ${req.body.whyMe}
-    `);
+**Kendinizden Bahsedin:** ${req.body.whyMe}`);
   const message = await channel.send(embed);
   return res.redirect("/");
 });
@@ -130,26 +129,4 @@ const error = (res, statuscode, message) => {
   return res.redirect(url.format({ pathname: "/error", query: { statuscode, message }}));
 };
 
-client.on("message", async message => {
-  const prefix = ".";
-  const owners = ["602087236623794179"];
-  if (message.author.bot || !message.guild || !message.content.toLowerCase().startsWith(prefix)) return;
-  let args = message.content.split(' ').slice(1);
-  let command = message.content.split(' ')[0].slice(prefix.length);
-
-  if (command === "eval" && owners.includes(message.author.id)) {
-    if (!args[0]) return message.channel.send(`Kod belirtilmedi`);
-    let code = args.join(' ');
-
-    function clean(text) {
-      if (typeof text !== 'string') text = require('util').inspect(text, { depth: 0 })
-      text = text.replace(/`/g, '`' + String.fromCharCode(8203)).replace(/@/g, '@' + String.fromCharCode(8203))
-      return text;
-    };
-    try { 
-      var evaled = clean(await eval(code));
-      if(evaled.match(new RegExp(`${client.token}`, 'g'))) evaled.replace("token", "Yasaklı komut").replace(client.token, "Yasaklı komut");
-      message.channel.send(`${evaled.replace(client.token, "Yasaklı komut")}`, {code: "js", split: true});
-    } catch(err) { message.channel.send(err, {code: "js", split: true}) };
-  };
 });
