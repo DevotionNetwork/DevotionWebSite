@@ -1,0 +1,28 @@
+<%- include("partials/ejs/_loader") -%>
+
+<title>Devotion | Partner</title>
+<link rel="stylesheet" href="styles/partnerbasvuru.css">
+
+<%- include("partials/ejs/_banner") -%>
+  <div class="general">
+    <h1>Partner Ol!</h1>
+  </div>
+  <div class="wrapper">
+    <form method="POST" action="/partner">
+      <div class="inputGroup">
+        <div><input type="text" placeholder="Sunucu Sahibi" autocomplete="off" name="sahip" required/><span class="highlight"></span><span class="bar"></span></div>
+        <div><input type="text" placeholder="Sunucu İsmi" autocomplete="off" name="server" required/><span class="highlight"></span><span class="bar"></span></div>
+        <div><input type="text" placeholder="Sınırsız Davet Link" autocomplete="off" name="davet" required/><span class="highlight"></span><span class="barr"></span></div>
+        <div><textarea name="sayi" rows="1" placeholder="Toplam Üye Sayısı" required></textarea><span class="highlight"></span><span class="barr"></span></div>
+        <div><textarea name="yazi" rows="6" placeholder="Topluluğunuzu Tanıtın" minlength="30" required></textarea><span class="highlight"></span><span class="barr"></span></div><br>
+        <br>
+        <br>
+        <br>
+      </div>
+      <button id="arda" type="submit"><i class="fas fa-check" style="margin-right: 15px; font-size: 20px;"></i>Gönder</button>
+    </form>
+  </div>
+</section>
+
+<%- include("partials/ejs/_navbar") -%>
+<%- include("partials/ejs/_footer") -%>
