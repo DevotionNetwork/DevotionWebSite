@@ -123,6 +123,34 @@ app.post("/basvuru", async (req, res) => {
   return res.redirect("/");
 });
 
+app.post("/partner", async (req, res) => {
+  if (!req.user) return error(res, 138, "Partner başvurusunda bulunabilmek için siteye giriş yapmanız gerekmektedir..");
+
+  const channel = client.channels.cache.get("848254327789322261");
+  const member = channel.guild.members.cache.get(req.user.id);
+  if (!member) return error(res, 403, "Başvuru yapabilmek için Discord sunucumuzda bulunmanız gerekmektedir..");
+  const clientUser = client.users.cache.get(req.user.id);
+  console.log(req.body.sahip)
+  const embed = new MessageEmbed()
+    .setThumbnail(channel.guild.iconURL({ dynamic: true }))
+    .setAuthor(`${clientUser.username} Yeni partner başvurusu!`, clientUser.avatarURL({ dynamic: true }))
+    .setColor("#8833ff")
+	.setTimestamp()
+    .setDescription(`
+**Kullanıcı:** ${channel.guild.members.cache.get(req.user.id).toString()} - \`${req.user.id}\`
+**Sunucu Sahibi:** \`${req.body.sahip}\`
+**Sunucu İsmi:** \`${req.body.server}\`
+
+**Sunucunun Sınırsız Daveti:** ${req.body.davet}
+
+**Sunucunun Üye Sayısı:** ${req.body.sayi}
+
+**Topluluğunuzu Tanıtın:** ${req.body.yazi}
+    `);
+  const message = await channel.send(embed);
+  return res.redirect("/");
+});
+
 app.use((req, res) => error(res, 404, "Sayfa bulunamadı!"));
 
 const error = (res, statuscode, message) => {
